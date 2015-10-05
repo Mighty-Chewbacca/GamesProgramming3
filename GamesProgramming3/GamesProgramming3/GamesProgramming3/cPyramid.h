@@ -18,14 +18,11 @@ public:
 
 private:
 
-	glm::vec3 m_topLeftFront;
-	glm::vec3 m_bottomLeftFront;
-	glm::vec3 m_topRightFront;
-	glm::vec3 m_bottomRightFront;
-	glm::vec3 m_topLeftBack;
-	glm::vec3 m_topRightBack;
-	glm::vec3 m_bottomLeftBack;
-	glm::vec3 m_bottomRightBack;
+	glm::vec3 m_top;
+	glm::vec3 m_LeftFront;
+	glm::vec3 m_RightFront;
+	glm::vec3 m_RightBack;
+	glm::vec3 m_LeftBack;
 
 	glm::vec3 m_Faces[24];
 	GLuint m_Indices[36];

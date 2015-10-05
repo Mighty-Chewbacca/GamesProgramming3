@@ -9,13 +9,14 @@ cCube.cpp
 
 cCube::cCube()
 {
-	setRotAngle(0.0f);
+	setRotAngle(5.0f);
 }
 
-void cCube::render(float rotAngle)
+void cCube::render(float rotAngle, int faceNo)
 {
-	//glRotatef(rotAngle, 0.0f, 1.0f, 0.0f); 
-	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+	glRotatef(rotAngle, 0.0f, 1.0f, 0.0f); 
+	glColor3f(m_colourList[faceNo].x, m_colourList[faceNo].y, m_colourList[faceNo].z);
+	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
 
 void cCube::initialise()
@@ -88,7 +89,7 @@ void cCube::initialise()
 	// Create Colour list 
 	cColours theColour;
 
-	for (int Colour = 0; Colour < 8; Colour++)
+	for (int Colour = 0; Colour < 7; Colour++)
 	{
 			m_colourList.push_back(theColour.getColour(static_cast<cColours::colours>(Colour)));
 	}
@@ -99,27 +100,30 @@ void cCube::initialise()
 	glBindBuffer = (PFNGLBINDBUFFERPROC)wglGetProcAddress("glBindBuffer");
 	glBufferData = (PFNGLBUFFERDATAPROC)wglGetProcAddress("glBufferData");
 
-	glEnableClientState(GL_COLOR_ARRAY);
+	//glEnableClientState(GL_COLOR_ARRAY);
 	glEnableClientState(GL_VERTEX_ARRAY);
 
-	glGenBuffers(2, &m_VertexBufferObjects[0]);
+	glGenBuffers(3, &m_VertexBufferObjects[0]);
 	glBindBuffer(GL_ARRAY_BUFFER, m_VertexBufferObjects[0]); //Bind the vertex buffer 
-	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 3 * m_vertices.size(), &m_vertices[0], GL_STATIC_DRAW); //Send the data to OpenGL 
+	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 3 * m_vertices.size(), &m_vertices[0], GL_STATIC_DRAW); //Send the data to OpenGL
+  
+	glTranslatef(0.0f, 0.0f, -6.0f);
+	glRotatef(30.0f, 0.0f, 1.0f, 0.0f);
+}
 
+void cCube::prepareFace(int faceNumber)
+{
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_VertexBufferObjects[1]); //Bind the vertex buffer 
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * sizeof(m_Indices), &m_Indices[0], GL_STATIC_DRAW); //Send the data to OpenGL 
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * 6, &m_Indices[faceNumber * 6], GL_STATIC_DRAW); //Send the data to OpenGL
 
-	glBindBuffer(GL_ARRAY_BUFFER, m_VertexBufferObjects[3]);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 3 * m_colourList.size(), &m_colourList[0], GL_STATIC_DRAW); //Send the data to OpenGL 
+	glBindBuffer(GL_ARRAY_BUFFER, m_VertexBufferObjects[2]);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 3 * m_colourList.size(), &m_colourList[faceNumber], GL_STATIC_DRAW); //Send the data to OpenGL 
 
 	//Bind the colour array, and set the color pointer to point at it 
-	glBindBuffer(GL_ARRAY_BUFFER, m_VertexBufferObjects[3]);
-	glColorPointer(3, GL_FLOAT, 0, 0);
+	//glBindBuffer(GL_ARRAY_BUFFER, m_VertexBufferObjects[2]);
+	//glColorPointer(3, GL_FLOAT, 0, 0);
 
 	//Bind the vertex array and set the vertex pointer to point at it 
 	glBindBuffer(GL_ARRAY_BUFFER, m_VertexBufferObjects[0]);
 	glVertexPointer(3, GL_FLOAT, 0, 0);
-
-	glTranslatef(0.0f, 0.0f, -6.0f);
-	glRotatef(30.0f, 0.0f, 1.0f, 0.0f);
 }

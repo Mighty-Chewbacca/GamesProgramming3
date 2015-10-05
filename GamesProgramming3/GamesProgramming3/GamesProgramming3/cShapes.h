@@ -18,7 +18,7 @@ class cShapes : public windowOGL
 {
 public:
 	cShapes();
-	virtual void render(float rotAngle) = 0;
+	virtual void render(float rotAngle, int faceNo) = 0;
 	float getRotAngle();
 	void setRotAngle(float rotAngle);
 	void prepare(float rAngle);

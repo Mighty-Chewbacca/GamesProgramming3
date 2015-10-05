@@ -12,10 +12,10 @@ cShapes::cShapes()
 	m_rotAngle = 0.0f;
 }
 
-void cShapes::render(float rotAngle)
+void cShapes::render(float rotAngle, int faceNo)
 {
 	//glRotatef(rotAngle, 0.0f, 1.0f, 0.0f); 
-	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
 
 float cShapes::getRotAngle()

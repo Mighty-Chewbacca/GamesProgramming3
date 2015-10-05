@@ -37,9 +37,10 @@ int WINAPI WinMain(HINSTANCE hInstance,
 
 	// Cube
 	cCube myCube;
+	//cPyramid myCube;
 
 	// Pyramid
-	cPyramid myPyramid;
+	//cPyramid myPyramid;
 
     //Attempt to create the window
 	if (!pgmWNDMgr->createWND(windowWidth, windowHeight, windowBPP))
@@ -71,9 +72,17 @@ int WINAPI WinMain(HINSTANCE hInstance,
 		// Lab code goes here
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+		//must render every time i prepare a face to be done, or else it only overwrites what has already been sent
 		myCube.prepare(0.0f);
-		myCube.render(0.0f);
 
+		//myCube.render(0.0f);
+
+		for (int faces = 0; faces < 6; faces++)
+		{
+			myCube.prepareFace(faces);
+			myCube.render(0.0f, faces);
+		}
+		myCube.render(0.1f, 0);
 		pgmWNDMgr->swapBuffers();
     }
 

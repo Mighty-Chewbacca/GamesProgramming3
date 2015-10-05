@@ -19,8 +19,9 @@ class cCube : public cShapes
 {
 public:
 	cCube();
-	virtual void render(float rotAngle);
+	virtual void render(float rotAngle, int faceNo);
 	virtual void initialise();
+	void prepareFace(int faceNumber);
 
 private:
 

@@ -66,6 +66,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="cBackupCube.cpp" />
     <ClCompile Include="cColours.cpp" />
     <ClCompile Include="cCube.cpp" />
     <ClCompile Include="cPyramid.cpp" />
@@ -76,6 +77,7 @@
     <ClCompile Include="windowOGL.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="cBackupCube.h" />
     <ClInclude Include="cColours.h" />
     <ClInclude Include="cCube.h" />
     <ClInclude Include="cPyramid.h" />
